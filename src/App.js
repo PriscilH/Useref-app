@@ -1,24 +1,47 @@
-import logo from './logo.svg';
+import { useRef } from 'react';
 import './App.css';
 
 function App() {
+  const cardCodeInputRef = useRef();
+  const expirationInputRef = useRef();
+
+  function handleCardNumberChange(e) {
+    if (e.target.value.length >= 16) {
+      cardCodeInputRef.current.focus();
+    }
+  }
+  
+  function handleCardCodeChange(e) {
+    if (e.target.value.length >= 3) {
+      expirationInputRef.current.focus();
+    }
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <label>Numéro carte bancaire</label>
+        <input  
+        onChange={handleCardNumberChange} 
+        type="number" 
+        name="creditCardNumber" />
+      </div>
+      <div>
+        <label>Code secret</label>
+        <input 
+         ref={cardCodeInputRef}
+         onChange={handleCardCodeChange}
+         type="number" 
+         name="creditCardCode" />
+      </div>
+      <div>
+        <label>Expiration date</label>
+        <input 
+        ref={expirationInputRef}
+        type="text" 
+        name="creditCardExpiration" />
+      </div>
+    </>
   );
 }
 
